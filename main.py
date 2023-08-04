@@ -7,9 +7,10 @@ pygame.font.init()
 window_size = (450, 500)
 
 screen = pygame.display.set_mode(window_size)
-pygame.display.set_caption("Tic Tac Toe")
+pygame.display.set_caption("Tic Tac Toe By Halip26")
 
 
+# Class digunakan untuk merepresentasikan objek atau entitas tertentu.
 class TicTacToe:
     def __init__(self, table_size):
         self.table_size = table_size
@@ -36,7 +37,7 @@ class TicTacToe:
         self.FPS = pygame.time.Clock()
 
     # menggambar representasi tabel
-    def _draw_table(self):
+    def draw_table(self):
         tb_space_point = (self.table_space, self.table_size - self.table_space)
         cell_space_point = (self.cell_size, self.cell_size * 2)
         r1 = pygame.draw.line(
@@ -68,7 +69,7 @@ class TicTacToe:
             8,
         )
 
-    def _change_player(self):
+    def change_player(self):
         self.player = "O" if self.player == "X" else "X"
 
     # memproses klik untuk memindahkan
@@ -77,14 +78,14 @@ class TicTacToe:
             x, y = pos[0] // self.cell_size, pos[1] // self.cell_size
             if self.table[x][y] == "-":
                 self.table[x][y] = self.player
-                self._draw_char(x, y, self.player)
-                self._game_check()
-                self._change_player()
+                self.draw_char(x, y, self.player)
+                self.game_check()
+                self.change_player()
         except:
             print("Click inside the table only")
 
     # menggambar karakter pemain terakhir ke sel tabel yang dipilih
-    def _draw_char(self, x, y, player):
+    def draw_char(self, x, y, player):
         if self.player == "O":
             img = pygame.image.load("assets/O.png")
         elif self.player == "X":
@@ -96,7 +97,7 @@ class TicTacToe:
         )
 
     # instruksi dan pesan status permainan
-    def _message(self):
+    def message(self):
         if self.winner is not None:
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
             msg = self.font.render(f"{self.winner} WINS!!", True, self.game_over_color)
@@ -112,7 +113,7 @@ class TicTacToe:
             )
             screen.blit(instructions, (135, 445))
 
-    def _game_check(self):
+    def game_check(self):
         # vertical check
         for x_index, col in enumerate(self.table):
             win = True
@@ -124,7 +125,7 @@ class TicTacToe:
                 else:
                     pattern_list.append((x_index, y_index))
             if win == True:
-                self._pattern_strike(pattern_list[0], pattern_list[-1], "ver")
+                self.pattern_strike(pattern_list[0], pattern_list[-1], "ver")
                 self.winner = self.player
                 self.taking_move = False
                 break
@@ -140,7 +141,7 @@ class TicTacToe:
                 else:
                     pattern_list.append((col, row))
             if win == True:
-                self._pattern_strike(pattern_list[0], pattern_list[-1], "hor")
+                self.pattern_strike(pattern_list[0], pattern_list[-1], "hor")
                 self.winner = self.player
                 self.taking_move = False
                 break
@@ -152,7 +153,7 @@ class TicTacToe:
                 win = False
                 break
         if win == True:
-            self._pattern_strike((0, 0), (2, 2), "left-diag")
+            self.pattern_strike((0, 0), (2, 2), "left-diag")
             self.winner = self.player
             self.taking_move = False
 
@@ -163,7 +164,7 @@ class TicTacToe:
                 win = False
                 break
         if win == True:
-            self._pattern_strike((2, 0), (0, 2), "right-diag")
+            self.pattern_strike((2, 0), (0, 2), "right-diag")
             self.winner = self.player
             self.taking_move = False
 
@@ -177,7 +178,7 @@ class TicTacToe:
             self.taking_move = False
 
     # menyerang garis ke pola kemenangan jika sudah ada
-    def _pattern_strike(self, start_point, end_point, line_type):
+    def pattern_strike(self, start_point, end_point, line_type):
         # gets the middle value of the cell
         mid_val = self.cell_size // 2
 
@@ -223,9 +224,9 @@ class TicTacToe:
 
     def main(self):
         screen.fill(self.background_color)
-        self._draw_table()
+        self.draw_table()
         while self.running:
-            self._message()
+            self.message()
             for self.event in pygame.event.get():
                 if self.event.type == pygame.QUIT:
                     self.running = False
