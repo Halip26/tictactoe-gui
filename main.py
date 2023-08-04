@@ -26,7 +26,7 @@ class TicTacToe:
             for row in range(3):
                 self.table[col].append("-")
 
-        self.background_color = (220, 20, 60)
+        self.background_color = (255, 174, 66)
         self.table_color = (50, 50, 50)
         self.line_color = (190, 0, 10)
         self.instructions_color = (17, 53, 165)
@@ -86,9 +86,9 @@ class TicTacToe:
     # draws character of the recent player to the selected table cell
     def _draw_char(self, x, y, player):
         if self.player == "O":
-            img = pygame.image.load("assets/o.png")
+            img = pygame.image.load("assets/O.png")
         elif self.player == "X":
-            img = pygame.image.load("assets/x.png")
+            img = pygame.image.load("assets/X.png")
         img = pygame.transform.scale(img, (self.cell_size, self.cell_size))
         screen.blit(
             img,
