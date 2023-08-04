@@ -35,7 +35,7 @@ class TicTacToe:
         self.font = pygame.font.SysFont("Courier New", 35)
         self.FPS = pygame.time.Clock()
 
-    # draws table representation
+    # menggambar representasi tabel
     def _draw_table(self):
         tb_space_point = (self.table_space, self.table_size - self.table_space)
         cell_space_point = (self.cell_size, self.cell_size * 2)
@@ -71,7 +71,7 @@ class TicTacToe:
     def _change_player(self):
         self.player = "O" if self.player == "X" else "X"
 
-    # processing clicks to move
+    # memproses klik untuk memindahkan
     def _move(self, pos):
         try:
             x, y = pos[0] // self.cell_size, pos[1] // self.cell_size
@@ -83,7 +83,7 @@ class TicTacToe:
         except:
             print("Click inside the table only")
 
-    # draws character of the recent player to the selected table cell
+    # menggambar karakter pemain terakhir ke sel tabel yang dipilih
     def _draw_char(self, x, y, player):
         if self.player == "O":
             img = pygame.image.load("assets/O.png")
@@ -95,7 +95,7 @@ class TicTacToe:
             (x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size),
         )
 
-    # instructions and game-state messages
+    # instruksi dan pesan status permainan
     def _message(self):
         if self.winner is not None:
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
@@ -176,12 +176,12 @@ class TicTacToe:
         if blank_cells == 0:
             self.taking_move = False
 
-    # strikes a line to winning patterns if already has
+    # menyerang garis ke pola kemenangan jika sudah ada
     def _pattern_strike(self, start_point, end_point, line_type):
         # gets the middle value of the cell
         mid_val = self.cell_size // 2
 
-        # for the vertical winning pattern
+        # untuk pola kemenangan vertikal
         if line_type == "ver":
             start_x, start_y = (
                 start_point[0] * self.cell_size + mid_val,
@@ -192,7 +192,7 @@ class TicTacToe:
                 self.table_size - self.table_space,
             )
 
-        # for the horizontal winning pattern
+        # untuk pola kemenangan horizontal
         elif line_type == "hor":
             start_x, start_y = (
                 self.table_space,
@@ -203,7 +203,7 @@ class TicTacToe:
                 end_point[-1] * self.cell_size + mid_val,
             )
 
-        # for the diagonal winning pattern from top-left to bottom right
+        # untuk pola kemenangan diagonal dari kiri atas ke kanan bawah
         elif line_type == "left-diag":
             start_x, start_y = self.table_space, self.table_space
             end_x, end_y = (
@@ -211,7 +211,7 @@ class TicTacToe:
                 self.table_size - self.table_space,
             )
 
-        # for the diagonal winning pattern from top-right to bottom-left
+        # untuk pola kemenangan diagonal dari kanan atas ke kiri bawah
         elif line_type == "right-diag":
             start_x, start_y = self.table_size - self.table_space, self.table_space
             end_x, end_y = self.table_space, self.table_size - self.table_space
