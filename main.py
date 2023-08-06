@@ -82,7 +82,7 @@ class TicTacToe:
                 self.game_check()
                 self.change_player()
         except:
-            print("Click inside the table only")
+            print("Hanya klik di dalam tabel")
 
     # menggambar karakter pemain terakhir ke sel tabel yang dipilih
     def draw_char(self, x, y, player):
@@ -100,11 +100,13 @@ class TicTacToe:
     def message(self):
         if self.winner is not None:
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
-            msg = self.font.render(f"{self.winner} WINS!!", True, self.game_over_color)
+            msg = self.font.render(
+                f"{self.winner} MENANG!!", True, self.game_over_color
+            )
             screen.blit(msg, (144, 445))
         elif not self.taking_move:
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
-            instructions = self.font.render("DRAW!!", True, self.game_over_color)
+            instructions = self.font.render("IMBANG!!", True, self.game_over_color)
             screen.blit(instructions, (165, 445))
         else:
             screen.fill(self.background_color, (135, 445, 188, 35))
