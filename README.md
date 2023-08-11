@@ -42,3 +42,21 @@ Baris ketiga dan keempat melakukan hal yang sama seperti baris pertama dan kedua
 Baris kelima hingga kedelapan melakukan hal yang sama dengan baris pertama hingga keempat, tetapi untuk menggambar garis-garis kedua (r2 dan c2).
 
 Jadi, fungsi draw_table(self) ini akan menggambar tabel dengan dua baris dan dua kolom pada layar dengan menggunakan garis-garis yang terdefinisi dalam code di atas.
+
+## Explanations 94 to 97
+
+```python
+ screen.blit(
+    img,
+    (x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size),
+)
+```
+
+Penjelasan baris kode tersebut adalah sebagai berikut:
+
+Padais tersebut, ekspresi (x *self.cell_size, y* self.cell_size, self.cell_size, self.cell_size) digunakan sebagai argumen kedua dalam fungsi screen.blit(). Ekspresi tersebut mendefinisikan rektangle tempat gambar akan digambar di layar.
+
+(x *self.cell_size, y* self.cell_size) merupakan titik koordinat kiri atas dari rektangle tersebut, yang mengindikasikan posisi gambar di layar. Koordinat x dan y dipermukaan layar dikalikan dengan ukuran sel tabel.
+self.cell_size merupakan lebar dan tinggi dari rektangle tersebut, yang mengindikasikan ukuran gambar.
+
+Jadi tidak ada dua kali penggunaan self.cell_size dalam baris kode tersebut.
