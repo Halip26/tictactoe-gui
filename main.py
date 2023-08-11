@@ -73,7 +73,7 @@ class TicTacToe:
         self.player = "O" if self.player == "X" else "X"
 
     # memproses klik untuk memindahkan
-    def _move(self, pos):
+    def move(self, pos):
         try:
             x, y = pos[0] // self.cell_size, pos[1] // self.cell_size
             if self.table[x][y] == "-":
@@ -219,7 +219,7 @@ class TicTacToe:
             start_x, start_y = self.table_size - self.table_space, self.table_space
             end_x, end_y = self.table_space, self.table_size - self.table_space
 
-        # draws the line strike
+        # untuk menggambar garisnya
         line_strike = pygame.draw.line(
             screen, self.line_color, [start_x, start_y], [end_x, end_y], 8
         )
@@ -235,7 +235,7 @@ class TicTacToe:
 
                 if self.event.type == pygame.MOUSEBUTTONDOWN:
                     if self.taking_move:
-                        self._move(self.event.pos)
+                        self.move(self.event.pos)
 
             pygame.display.flip()
             self.FPS.tick(60)
