@@ -69,6 +69,7 @@ class TicTacToe:
             8,
         )
 
+    # untuk memproses pergantian pemain
     def change_player(self):
         self.player = "O" if self.player == "X" else "X"
 
@@ -148,7 +149,7 @@ class TicTacToe:
                 self.taking_move = False
                 break
 
-        # left diagonal check
+        # pemeriksaan diagonal kiri
         for index, row in enumerate(self.table):
             win = True
             if row[index] != self.player:
@@ -159,7 +160,7 @@ class TicTacToe:
             self.winner = self.player
             self.taking_move = False
 
-        # right diagonal check
+        # pemeriksaan diagonal kanan
         for index, row in enumerate(self.table[::-1]):
             win = True
             if row[index] != self.player:
@@ -170,7 +171,7 @@ class TicTacToe:
             self.winner = self.player
             self.taking_move = False
 
-        # blank table cells check
+        # blank table cells check to draw
         blank_cells = 0
         for row in self.table:
             for cell in row:
@@ -179,12 +180,12 @@ class TicTacToe:
         if blank_cells == 0:
             self.taking_move = False
 
-    # menyerang garis ke pola kemenangan jika sudah ada
+    # membuat garis ke pola kemenangan jika sudah ada
     def pattern_strike(self, start_point, end_point, line_type):
         # gets the middle value of the cell
         mid_val = self.cell_size // 2
 
-        # untuk pola kemenangan vertikal
+        # garis untuk pola kemenangan vertikal
         if line_type == "ver":
             start_x, start_y = (
                 start_point[0] * self.cell_size + mid_val,
@@ -195,7 +196,7 @@ class TicTacToe:
                 self.table_size - self.table_space,
             )
 
-        # untuk pola kemenangan horizontal
+        # garis untuk pola kemenangan horizontal
         elif line_type == "hor":
             start_x, start_y = (
                 self.table_space,
@@ -206,7 +207,7 @@ class TicTacToe:
                 end_point[-1] * self.cell_size + mid_val,
             )
 
-        # untuk pola kemenangan diagonal dari kiri atas ke kanan bawah
+        # garis untuk pola kemenangan diagonal dari kiri atas ke kanan bawah
         elif line_type == "left-diag":
             start_x, start_y = self.table_space, self.table_space
             end_x, end_y = (
@@ -214,12 +215,12 @@ class TicTacToe:
                 self.table_size - self.table_space,
             )
 
-        # untuk pola kemenangan diagonal dari kanan atas ke kiri bawah
+        # garis untuk pola kemenangan diagonal dari kanan atas ke kiri bawah
         elif line_type == "right-diag":
             start_x, start_y = self.table_size - self.table_space, self.table_space
             end_x, end_y = self.table_space, self.table_size - self.table_space
 
-        # untuk menggambar garisnya
+        # Variable untuk menggambar garisnya
         line_strike = pygame.draw.line(
             screen, self.line_color, [start_x, start_y], [end_x, end_y], 8
         )
@@ -241,6 +242,7 @@ class TicTacToe:
             self.FPS.tick(60)
 
 
+# untuk implementasi dari sebuah permainan TicTacToe
 if __name__ == "__main__":
     g = TicTacToe(window_size[0])
     g.main()
