@@ -100,16 +100,19 @@ class TicTacToe:
     # instruksi dan pesan status permainan
     def message(self):
         if self.winner is not None:
+            # Kondisi jika ada pemenang
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
             msg = self.font.render(
                 f"{self.winner} MENANG!!", True, self.game_over_color
             )
             screen.blit(msg, (144, 445))
         elif not self.taking_move:
+            # Kondisi jika permainan berakhir tanpa pemenang (imbang)
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
             instructions = self.font.render("IMBANG!!", True, self.game_over_color)
             screen.blit(instructions, (165, 445))
         else:
+            # Kondisi jika permainan masih berlangsung dan pemain harus melakukan langkah
             screen.fill(self.background_color, (135, 445, 188, 35))
             instructions = self.font.render(
                 f"{self.player} to move", True, self.instructions_color
