@@ -27,7 +27,7 @@ class TicTacToe:
             for row in range(3):
                 self.table[col].append("-")
 
-        self.background_color = (255, 174, 66)
+        self.background_color = (143, 235, 52)
         self.table_color = (50, 50, 50)
         self.line_color = (190, 0, 10)
         self.instructions_color = (17, 53, 165)
@@ -102,14 +102,12 @@ class TicTacToe:
         if self.winner is not None:
             # Kondisi jika ada pemenang
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
-            msg = self.font.render(
-                f"{self.winner} MENANG!!", True, self.game_over_color
-            )
+            msg = self.font.render(f"{self.winner} WIN!!", True, self.game_over_color)
             screen.blit(msg, (144, 445))
         elif not self.taking_move:
             # Kondisi jika permainan berakhir tanpa pemenang (imbang)
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
-            instructions = self.font.render("IMBANG!!", True, self.game_over_color)
+            instructions = self.font.render("TIE!!", True, self.game_over_color)
             screen.blit(instructions, (165, 445))
         else:
             # Kondisi jika permainan masih berlangsung dan pemain harus melakukan langkah
