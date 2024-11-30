@@ -10,7 +10,7 @@ screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption("Tic Tac Toe Game")
 
 
-# Class digunakan untuk merepresentasikan objek atau entitas tertentu.
+# Classes are used to represent certain objects or entities.
 class TicTacToe:
     def __init__(self, table_size):
         self.table_size = table_size
@@ -36,7 +36,7 @@ class TicTacToe:
         self.font = pygame.font.SysFont("Courier New", 35)
         self.FPS = pygame.time.Clock()
 
-    # menggambar representasi tabel
+    # draw a tabular representation
     def draw_table(self):
         tb_space_point = (self.table_space, self.table_size - self.table_space)
         cell_space_point = (self.cell_size, self.cell_size * 2)
@@ -69,11 +69,11 @@ class TicTacToe:
             8,
         )
 
-    # untuk memproses pergantian pemain
+    # to process substitutions
     def change_player(self):
         self.player = "O" if self.player == "X" else "X"
 
-    # memproses klik untuk memindahkan
+    # process clicks to move
     def move(self, pos):
         try:
             x, y = pos[0] // self.cell_size, pos[1] // self.cell_size
@@ -85,7 +85,7 @@ class TicTacToe:
         except:
             print("Hanya klik di dalam tabel")
 
-    # menggambar karakter pemain terakhir ke sel tabel yang dipilih
+    # draws the last player character to the selected table cell
     def draw_char(self, x, y, player):
         if self.player == "O":
             img = pygame.image.load("assets/O.png")
@@ -97,20 +97,20 @@ class TicTacToe:
             (x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size),
         )
 
-    # instruksi dan pesan status permainan
+    # instructions and game status messages
     def message(self):
         if self.winner is not None:
-            # Kondisi jika ada pemenang
+            # Conditions if there is a winner
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
             msg = self.font.render(f"{self.winner} WIN!!", True, self.game_over_color)
             screen.blit(msg, (144, 445))
         elif not self.taking_move:
-            # Kondisi jika permainan berakhir tanpa pemenang (imbang)
+            # Conditions if the game ends without a winner (draw)
             screen.fill(self.game_over_bg_color, (130, 445, 193, 35))
             instructions = self.font.render("TIE!!", True, self.game_over_color)
             screen.blit(instructions, (165, 445))
         else:
-            # Kondisi jika permainan masih berlangsung dan pemain harus melakukan langkah
+            # Conditions if the game is still in progress and the player must make a move
             screen.fill(self.background_color, (135, 445, 188, 35))
             instructions = self.font.render(
                 f"{self.player} to move", True, self.instructions_color
@@ -150,7 +150,7 @@ class TicTacToe:
                 self.taking_move = False
                 break
 
-        # pemeriksaan diagonal kiri
+        # left diagonal examination
         for index, row in enumerate(self.table):
             win = True
             if row[index] != self.player:
@@ -181,12 +181,12 @@ class TicTacToe:
         if blank_cells == 0:
             self.taking_move = False
 
-    # membuat garis ke pola kemenangan jika sudah ada
+    # draw a line to the winning pattern if it already exists
     def pattern_strike(self, start_point, end_point, line_type):
         # gets the middle value of the cell
         mid_val = self.cell_size // 2
 
-        # garis untuk pola kemenangan vertikal
+        # lines for vertical winning patterns
         if line_type == "ver":
             start_x, start_y = (
                 start_point[0] * self.cell_size + mid_val,
@@ -197,7 +197,7 @@ class TicTacToe:
                 self.table_size - self.table_space,
             )
 
-        # garis untuk pola kemenangan horizontal
+        # lines for horizontal winning patterns
         elif line_type == "hor":
             start_x, start_y = (
                 self.table_space,
@@ -208,7 +208,7 @@ class TicTacToe:
                 end_point[-1] * self.cell_size + mid_val,
             )
 
-        # garis untuk pola kemenangan diagonal dari kiri atas ke kanan bawah
+        # lines for diagonal winning patterns from top left to bottom right
         elif line_type == "left-diag":
             start_x, start_y = self.table_space, self.table_space
             end_x, end_y = (
@@ -216,12 +216,12 @@ class TicTacToe:
                 self.table_size - self.table_space,
             )
 
-        # garis untuk pola kemenangan diagonal dari kanan atas ke kiri bawah
+        # lines for diagonal winning patterns from top right to bottom left
         elif line_type == "right-diag":
             start_x, start_y = self.table_size - self.table_space, self.table_space
             end_x, end_y = self.table_space, self.table_size - self.table_space
 
-        # Variable untuk menggambar garisnya
+        # Variables to draw the line
         line_strike = pygame.draw.line(
             screen, self.line_color, [start_x, start_y], [end_x, end_y], 8
         )
@@ -243,7 +243,7 @@ class TicTacToe:
             self.FPS.tick(60)
 
 
-# untuk implementasi dari sebuah permainan TicTacToe
+# for implementation of a TicTacToe game
 if __name__ == "__main__":
     g = TicTacToe(window_size[0])
     g.main()
