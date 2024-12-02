@@ -29,7 +29,7 @@ class TicTacToe:
 
         self.background_color = (143, 235, 52)
         self.table_color = (50, 50, 50)
-        self.line_color = (190, 0, 10)
+        self.line_color = (252, 8, 110)
         self.instructions_color = (17, 53, 165)
         self.game_over_bg_color = (47, 98, 162)
         self.game_over_color = (255, 179, 1)
@@ -83,7 +83,7 @@ class TicTacToe:
                 self.game_check()
                 self.change_player()
         except:
-            print("Hanya klik di dalam tabel")
+            print("Only click inside the table!")
 
     # draws the last player character to the selected table cell
     def draw_char(self, x, y, player):
@@ -161,7 +161,7 @@ class TicTacToe:
             self.winner = self.player
             self.taking_move = False
 
-        # pemeriksaan diagonal kanan
+        # right diagonal examination
         for index, row in enumerate(self.table[::-1]):
             win = True
             if row[index] != self.player:
