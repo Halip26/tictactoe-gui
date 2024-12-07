@@ -1,4 +1,10 @@
-# Explanation in line code 40 to 70
+# Install
+
+```bash
+pip install -r .\requirements.txt
+```
+
+## Explanation in line code 40 to 70
 
 ```python
  def draw_table(self):
