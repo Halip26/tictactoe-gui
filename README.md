@@ -1,8 +1,61 @@
-# Install
+# Tic Tac Toe GUI
+
+A simple Tic Tac Toe game implemented using Python with a graphical user interface (GUI).
+
+## Features
+
+- Player vs Player mode.
+- Graphical interface for easy play.
+- Highlighting of winning combination.
+
+## Requirements
+
+- Python 3.x
+- tkinter (for GUI)
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Halip26/tictactoe-gui.git
+   cd tictactoe-gui
+   ```
+
+2. Run the game:
+
+   ```bash
+   python main.py
+   ```
+
+## Install the Requirements
 
 ```bash
 pip install -r .\requirements.txt
 ```
+
+## How to Play
+
+- The game starts with an empty 3x3 board.
+- Players take turns clicking on the empty cells to place their mark (X or O).
+- The first player to align three marks in a row, column, or diagonal wins the game.
+- The game highlights the winning combination and provides an option to restart.
+
+## Files
+
+- `main.py`: Main script to run the game.
+
+## Contact
+
+For any questions or feedback, feel free to contact the project maintainer:
+
+- [GitHub Profile](https://github.com/Halip26)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
 
 ## Explanation in line code 40 to 70
 
@@ -66,3 +119,7 @@ Padais tersebut, ekspresi (x *self.cell_size, y* self.cell_size, self.cell_size,
 self.cell_size merupakan lebar dan tinggi dari rektangle tersebut, yang mengindikasikan ukuran gambar.
 
 Jadi tidak ada dua kali penggunaan self.cell_size dalam baris kode tersebut.
+
+---
+
+Developed by [Halip26](https://halip26.github.io/)
