@@ -29,7 +29,7 @@ class TicTacToe:
 
         self.background_color = (143, 235, 52)
         self.table_color = (50, 50, 50)
-        self.line_color = (252, 8, 110)
+        self.line_color = (252, 186, 3)
         self.instructions_color = (17, 53, 165)
         self.game_over_bg_color = (47, 98, 162)
         self.game_over_color = (255, 179, 1)
