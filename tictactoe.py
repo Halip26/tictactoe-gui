@@ -81,15 +81,15 @@ def move(pos):
         print("Only click inside the table!")
 
 
-def draw_char(x, y, player):
-    if player == "O":
+def draw_char(verti, horiz, user):
+    if user== "O":
         img = pygame.image.load("assets/O.png")
-    elif player == "X":
+    elif user == "X":
         img = pygame.image.load("assets/X.png")
     img = pygame.transform.scale(img, (cell_size, cell_size))
     screen.blit(
         img,
-        (x * cell_size, y * cell_size, cell_size, cell_size),
+        (verti * cell_size, horiz * cell_size, cell_size, cell_size),
     )
 
 
