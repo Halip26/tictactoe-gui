@@ -82,10 +82,11 @@ def move(pos):
 
 
 def draw_char(verti, horiz, user):
-    if user== "O":
+    if user == "O":
         img = pygame.image.load("assets/O.png")
     elif user == "X":
         img = pygame.image.load("assets/X.png")
+
     img = pygame.transform.scale(img, (cell_size, cell_size))
     screen.blit(
         img,
