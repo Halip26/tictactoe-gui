@@ -130,10 +130,10 @@ def game_check():
             break
 
     # Check horizontal
-    for row in range(len(table)):
+    for row in enumerate(table):
         win = True
         pattern_list = []
-        for col in range(len(table)):
+        for col in enumerate(table):
             if table[col][row] != player:
                 win = False
                 break
