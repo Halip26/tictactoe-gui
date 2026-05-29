@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import random
 
 pygame.init()
 pygame.font.init()
@@ -17,7 +18,7 @@ class TicTacToe:
         self.cell_size = table_size // 3
         self.table_space = 20
 
-        self.player = "X"
+        self.player = random.choice(["X", "O"])
         self.winner = None
         self.taking_move = True
         self.running = True
@@ -35,6 +36,12 @@ class TicTacToe:
         self.game_over_color = (255, 179, 1)
         self.font = pygame.font.SysFont("Courier New", 35)
         self.FPS = pygame.time.Clock()
+
+        # pre-load images to avoid "libpng warning" spam and improve performance
+        self.X_IMG = pygame.image.load("assets/X.png")
+        self.O_IMG = pygame.image.load("assets/O.png")
+
+        # to avoid this "libpng warning: iCCP: known incorrect sRGB profile"
 
     # draw a tabular representation
     def draw_table(self):
@@ -88,9 +95,9 @@ class TicTacToe:
     # draws the last player character to the selected table cell
     def draw_char(self, x, y, player):
         if self.player == "O":
-            img = pygame.image.load("assets/O.png")
+            img = self.O_IMG
         elif self.player == "X":
-            img = pygame.image.load("assets/X.png")
+            img = self.X_IMG
         img = pygame.transform.scale(img, (self.cell_size, self.cell_size))
         screen.blit(
             img,
@@ -222,15 +229,62 @@ class TicTacToe:
             end_x, end_y = self.table_space, self.table_size - self.table_space
 
         # Variables to draw the line
-        line_strike = pygame.draw.line(
-            screen, self.line_color, [start_x, start_y], [end_x, end_y], 8
+        pygame.draw.line(screen, self.line_color, [start_x, start_y], [end_x, end_y], 8)
+
+    def restart_game(self):
+        self.table = [["-" for _ in range(3)] for _ in range(3)]
+        self.winner = None
+        self.taking_move = True
+        self.player = random.choice(["X", "O"])
+        screen.fill(self.background_color)
+        self.draw_table()
+
+    def draw_game_over(self):
+        # Semi-transparent overlay
+        overlay = pygame.Surface((window_size[0], window_size[1]), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 180))  # Black with alpha
+        screen.blit(overlay, (0, 0))
+
+        # Use pre-loaded images
+        if self.winner == "O":
+            img = self.O_IMG
+        elif self.winner == "X":
+            img = self.X_IMG
+        else:  # Draw
+            img = None
+
+        if img:
+            img = pygame.transform.scale(img, (150, 150))
+            screen.blit(img, (window_size[0] // 2 - 75, 100))
+            msg_text = f"{self.winner} WIN!!"
+        else:
+            msg_text = "TIE!!"
+
+        # Render Winner Text
+        big_font = pygame.font.SysFont("Courier New", 50, bold=True)
+        msg = big_font.render(msg_text, True, self.game_over_color)
+        msg_rect = msg.get_rect(center=(window_size[0] // 2, 280))
+        screen.blit(msg, msg_rect)
+
+        # Render Options
+        small_font = pygame.font.SysFont("Courier New", 20, bold=True)
+        play_again_msg = small_font.render(
+            "Press SPACE to Play Again", True, (255, 255, 255)
         )
+        quit_msg = small_font.render("Press ESC to Quit", True, (255, 255, 255))
+
+        screen.blit(
+            play_again_msg, play_again_msg.get_rect(center=(window_size[0] // 2, 380))
+        )
+        screen.blit(quit_msg, quit_msg.get_rect(center=(window_size[0] // 2, 420)))
 
     def main(self):
         screen.fill(self.background_color)
         self.draw_table()
         while self.running:
-            self.message()
+            if self.taking_move:
+                self.message()
+
             for self.event in pygame.event.get():
                 if self.event.type == pygame.QUIT:
                     self.running = False
@@ -238,6 +292,16 @@ class TicTacToe:
                 if self.event.type == pygame.MOUSEBUTTONDOWN:
                     if self.taking_move:
                         self.move(self.event.pos)
+
+                if self.event.type == pygame.KEYDOWN:
+                    if not self.taking_move:
+                        if self.event.key == pygame.K_SPACE:
+                            self.restart_game()
+                        if self.event.key == pygame.K_ESCAPE:
+                            self.running = False
+
+            if not self.taking_move:
+                self.draw_game_over()
 
             pygame.display.flip()
             self.FPS.tick(60)
